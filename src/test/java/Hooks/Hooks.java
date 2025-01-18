@@ -17,7 +17,7 @@ public class Hooks {
     }
 
 
-    @After
+    @AfterAll
     public static void closeWebDriver() {
 
         System.out.println("Closing WebDriver");

@@ -24,6 +24,7 @@ public class NumberToWordStepDefs  {
 
         numberToWordPage.getInputNumField().sendKeys(inputNumber);
 
+        testContext.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(numberToWordPage.getSubmitButton()));
         numberToWordPage.getSubmitButton().click();
 
 
