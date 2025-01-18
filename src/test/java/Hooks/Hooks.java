@@ -1,26 +1,23 @@
 package Hooks;
 
 import Context.TestContext;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.BeforeAll;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import io.cucumber.java.After;
+import org.junit.jupiter.api.AfterAll;
 
-public class Hooks extends TestContext {
+public class Hooks {
 
-    private TestContext testContext;
-    private WebDriver driver;
+    private final TestContext testContext;
 
 
     public Hooks(TestContext testContext) {
         this.testContext = testContext;
-        this.driver = this.testContext.getWebDriver();
     }
 
 
-    @AfterAll
-    public void closeWebDriver() {
+    @After
+    public static void closeWebDriver() {
+        System.out.println("Closing WebDriver");
 
-        driver.quit();
+        TestContext.quitDriver();
     }
 }
