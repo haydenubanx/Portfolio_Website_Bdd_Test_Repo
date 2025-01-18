@@ -48,4 +48,25 @@ public class NumberToWordStepDefs  {
 
 
     }
+
+    @Then("an error message is displayed")
+    public void anErrorMessageIsDisplayed() {
+
+        String expectedPhrase = "Please enter a number between -10 Billion and 10 Billion";
+
+        testContext.getWebDriverWait().until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//section//py-script/div[2]"))
+        );
+
+
+        numberToWordPage.setOutputWordText(testContext.getWebDriver().findElement(By.xpath("//section//py-script/div[2]")));
+
+        String outputText = numberToWordPage.getOutputWordText().getText();
+
+
+        Assert.assertTrue("Expected output to contain an error value \n" +
+                "But actual value was: " + "\n" + outputText, outputText.toLowerCase().contains(expectedPhrase.toLowerCase()));
+
+
+    }
 }

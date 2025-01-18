@@ -2,10 +2,7 @@ package Hooks;
 
 import Context.TestContext;
 import io.cucumber.java.After;
-import io.cucumber.java.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Hooks {
 
@@ -17,9 +14,8 @@ public class Hooks {
     }
 
 
-    @AfterAll
+    @After
     public static void closeWebDriver() {
-
         System.out.println("Closing WebDriver");
 
         TestContext.quitDriver();
