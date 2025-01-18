@@ -9,7 +9,7 @@ This repository contains the BDD test automation framework developed to ensure t
 ## Key Features
 
 - **Behavior-Driven Development (BDD):** Test cases are defined in Gherkin, promoting collaboration and clarity.
-- **Cross-Browser Testing:** Supports multiple browsers to ensure compatibility.
+- **Cross-Browser Testing:** (Future Addition) Supports multiple browsers to ensure compatibility.
 - **Page Object Model (POM):** Modular design for maintainable and scalable tests.
 - **Automation Framework:** Built with modern testing libraries and tools.
 - **Easy Setup and Execution:** Streamlined for developers and QA engineers.
