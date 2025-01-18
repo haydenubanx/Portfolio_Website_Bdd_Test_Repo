@@ -1,13 +1,11 @@
 package StepDefinitions;
 
 import Context.TestContext;
-import Hooks.Hooks;
 import Pages.NumberToWordPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class NumberToWordStepDefs  {
@@ -15,9 +13,9 @@ public class NumberToWordStepDefs  {
     private final TestContext testContext;
     private final NumberToWordPage numberToWordPage;
 
-    public NumberToWordStepDefs(TestContext testContext, NumberToWordPage numberToWordPage) {
+    public NumberToWordStepDefs(TestContext testContext) {
         this.testContext = testContext;
-        this.numberToWordPage = numberToWordPage;
+        this.numberToWordPage = new NumberToWordPage(this.testContext);
     }
 
     @When("^I enter the value (.*) into the number to word converter entry field$")
