@@ -2,10 +2,10 @@ package StepDefinitions;
 
 import Context.TestContext;
 import io.cucumber.java.en.Given;
+import org.openqa.selenium.JavascriptExecutor;
 
 
-
-public class PageNavigationStepDefs extends TestContext {
+public class PageNavigationStepDefs {
 
     private final TestContext testContext;
 
@@ -16,6 +16,14 @@ public class PageNavigationStepDefs extends TestContext {
 
     @Given("^I navigate to the (.*) page$")
     public void navigateToPage(String inputPage) {
+
+        // Open a new tab using JavaScript
+        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("window.open();");
+
+        // Switch to the new tab
+        for (String tab : testContext.getWebDriver().getWindowHandles()) {
+            testContext.getWebDriver().switchTo().window(tab);
+        }
 
         String url = "https://haydeneubanks.co.uk/index.php";
 
