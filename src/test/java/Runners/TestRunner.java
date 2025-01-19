@@ -1,19 +1,16 @@
 package Runners;
 
 import Context.TestContext;
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.AfterClass;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.junit.runner.RunWith;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
 
-@RunWith(Cucumber.class)
+//@RunWith(Cucumber.class)
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
@@ -21,11 +18,12 @@ import org.junit.platform.suite.api.Suite;
 @ConfigurationParameter(key = "cucumber.options", value = "--threads 4")
 @ConfigurationParameter(key = "cucumber.glue", value = "classpath:StepDefinitions,classpath:Hooks")
 @ConfigurationParameter(key = "cucumber.tags", value = "@Portfolio")
+@ConfigurationParameter(key = "cucumber.execution.parallel.enabled", value = "true")
 @Execution(ExecutionMode.CONCURRENT)
 public class TestRunner {
 
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() {
         System.out.println("Test suite finished. Closing WebDriver.");
         TestContext.quitDriver();

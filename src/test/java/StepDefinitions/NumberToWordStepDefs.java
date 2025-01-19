@@ -5,7 +5,6 @@ import Pages.NumberToWordPage;
 import Utils.ScreenshotUtil;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -15,6 +14,8 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NumberToWordStepDefs {
 
@@ -57,8 +58,8 @@ public class NumberToWordStepDefs {
         String outputText = numberToWordPage.getOutputWordText().getText();
 
 
-        Assert.assertTrue("Expected output text to contain string value: " + expectedWord + "\n" +
-                "But actual value was: " + "\n" + outputText, outputText.toLowerCase().contains(expectedWord.toLowerCase()));
+        assertTrue( outputText.toLowerCase().contains(expectedWord.toLowerCase()), "Expected output text to contain string value: " + expectedWord + "\n" +
+                "But actual value was: " + "\n" + outputText);
 
 
     }
@@ -78,8 +79,8 @@ public class NumberToWordStepDefs {
         String outputText = numberToWordPage.getOutputWordText().getText();
 
 
-        Assert.assertTrue("Expected output to contain an error value \n" +
-                "But actual value was: " + "\n" + outputText, outputText.toLowerCase().contains(expectedPhrase.toLowerCase()));
+        assertTrue( outputText.toLowerCase().contains(expectedPhrase.toLowerCase()), "Expected output to contain an error value \n" +
+                "But actual value was: " + "\n" + outputText);
 
 
     }
