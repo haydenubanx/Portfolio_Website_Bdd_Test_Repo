@@ -7,7 +7,16 @@ import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features", glue = {"StepDefinitions", "Hooks"}, tags = "@tensTest")
+@CucumberOptions(
+        features = "src/test/resources/features",
+        glue = {"StepDefinitions", "Hooks"},
+        tags = "@Portfolio",
+        plugin = {
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+                "pretty",
+                "json:target/cucumber-reports/cucumber.json",
+                "html:target/cucumber-reports/cucumber.html"
+        })
 public class TestRunner {
 
 
