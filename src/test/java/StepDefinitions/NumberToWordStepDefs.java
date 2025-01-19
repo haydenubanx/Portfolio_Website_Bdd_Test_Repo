@@ -2,13 +2,21 @@ package StepDefinitions;
 
 import Context.TestContext;
 import Pages.NumberToWordPage;
+import Utils.ScreenshotUtil;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.apache.commons.io.FileUtils;
 
-public class NumberToWordStepDefs  {
+import java.io.File;
+import java.io.IOException;
+
+public class NumberToWordStepDefs {
 
     private final TestContext testContext;
     private final NumberToWordPage numberToWordPage;
@@ -22,10 +30,17 @@ public class NumberToWordStepDefs  {
     public void enterValueIntoConverter(String inputNumber) {
 
 
-        numberToWordPage.getInputNumField().sendKeys(inputNumber);
+        try {
+            numberToWordPage.getInputNumField().sendKeys(inputNumber);
 
-        testContext.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(numberToWordPage.getSubmitButton()));
-        numberToWordPage.getSubmitButton().click();
+            testContext.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(numberToWordPage.getSubmitButton()));
+            ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].click();", numberToWordPage.getSubmitButton());
+//            numberToWordPage.getSubmitButton().click();
+        } catch (Exception e) {
+            ScreenshotUtil.takeScreenshot(testContext.getWebDriver(), testContext.getTestId() + "-error_on_submit");
+            System.out.println("An error occurred: " + e.getMessage());
+
+        }
 
 
     }
@@ -34,11 +49,11 @@ public class NumberToWordStepDefs  {
     @Then("^the expected word value of (.*) is returned$")
     public void theExpectedWordValueOfOutput_WordIsReturned(String expectedWord) {
         testContext.getWebDriverWait().until(
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//section//py-script/div[2]"))
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//py-script[@id='py-internal-0']/div[2]"))
         );
 
 
-        numberToWordPage.setOutputWordText(testContext.getWebDriver().findElement(By.xpath("//section//py-script/div[2]")));
+        numberToWordPage.setOutputWordText(testContext.getWebDriver().findElement(By.xpath("//py-script[@id='py-internal-0']/div[2]")));
 
         String outputText = numberToWordPage.getOutputWordText().getText();
 
@@ -55,11 +70,11 @@ public class NumberToWordStepDefs  {
         String expectedPhrase = "Please enter a number between -10 Billion and 10 Billion";
 
         testContext.getWebDriverWait().until(
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//section//py-script/div[2]"))
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//py-script[@id='py-internal-0']/div[2]"))
         );
 
 
-        numberToWordPage.setOutputWordText(testContext.getWebDriver().findElement(By.xpath("//section//py-script/div[2]")));
+        numberToWordPage.setOutputWordText(testContext.getWebDriver().findElement(By.xpath("//py-script[@id='py-internal-0']/div[2]")));
 
         String outputText = numberToWordPage.getOutputWordText().getText();
 

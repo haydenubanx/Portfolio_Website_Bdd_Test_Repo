@@ -1,6 +1,7 @@
 @Portfolio @NumberToWord
 Feature: These tests will test the functionality of the number to word converter page on my portfolio site
 
+  @tensTest
   Scenario Outline: This test will verify that the correct output is received for powers of ten
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
@@ -18,6 +19,7 @@ Feature: These tests will test the functionality of the number to word converter
       | 100000000    | one hundred million  |
       | 1000000000   | one billion          |
 
+  @negativeNumTest
   Scenario Outline: This test will verify that negative numbers are expected
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
@@ -27,6 +29,7 @@ Feature: These tests will test the functionality of the number to word converter
       | -1           | negative one |
 
 
+  @andTest
   Scenario Outline: This test will check the conditions in which the word 'and' should be displayed
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
@@ -49,6 +52,7 @@ Feature: These tests will test the functionality of the number to word converter
       | 1010000000   | one billion and ten million          |
       | 1000010000   | one billion and ten thousand         |
 
+  @outOfBoundsTest
   Scenario Outline: This test will check that the error message is displayed for numbers out of bounds
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
@@ -58,6 +62,7 @@ Feature: These tests will test the functionality of the number to word converter
       | 10000000000  |
       | -10000000000 |
 
+  @normalEntryTest
   Scenario Outline: Standard set of regression numbers
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field

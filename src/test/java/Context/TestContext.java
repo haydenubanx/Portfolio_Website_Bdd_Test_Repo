@@ -4,6 +4,7 @@ package Context;
 import io.cucumber.java.BeforeAll;
 import lombok.Data;
 import org.junit.jupiter.api.AfterAll;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,6 +13,7 @@ import org.picocontainer.Disposable;
 import org.picocontainer.Startable;
 
 import java.time.Duration;
+import java.util.Random;
 
 @Data
 public class TestContext {
@@ -20,9 +22,13 @@ public class TestContext {
     // Define an explicit wait
     private WebDriverWait wait;
     private static ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
+    Random random;
+    private String testId;
 
     public TestContext() {
 
+        random = new Random();
+        testId = "Test-" + random.nextInt();
 
     }
 
@@ -31,14 +37,13 @@ public class TestContext {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless"); // Run Chrome in headless mode
         options.addArguments("--disable-gpu"); // Disable GPU usage (optional, improves compatibility)
-        options.addArguments("--window-size=1920,1080"); // Optional: Set window size
 
 
         if (webDriverThreadLocal.get() == null) {
             String userDir = System.getProperty("user.dir");
             System.setProperty("webdriver.chrome.driver", userDir + "/src/test/resources/drivers/chromedriver-mac-arm64/chromedriver");
 
-            //Choose webDriver set method based on if headless mode is desired
+            //Use line to set web driver below with the options parameter to run in headless mode
             webDriverThreadLocal.set(new ChromeDriver(options));
 //            webDriverThreadLocal.set(new ChromeDriver());
 
