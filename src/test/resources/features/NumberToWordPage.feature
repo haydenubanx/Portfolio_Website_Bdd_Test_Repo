@@ -2,7 +2,7 @@
 Feature: These tests will test the functionality of the number to word converter page on my portfolio site
 
   @tensTest
-  Scenario Outline: This test will verify that the correct output is received for powers of ten
+  Scenario Outline: This test will verify that the correct output is received for the <output_Word> power of ten
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
     Then the expected word value of <output_Word> is returned
@@ -30,7 +30,7 @@ Feature: These tests will test the functionality of the number to word converter
 
 
   @andTest
-  Scenario Outline: This test will check the conditions in which the word 'and' should be displayed
+  Scenario Outline: This test will check the <output_Word> condition in which the word 'and' should be displayed
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
     Then the expected word value of <output_Word> is returned
@@ -53,7 +53,7 @@ Feature: These tests will test the functionality of the number to word converter
       | 1000010000   | one billion and ten thousand         |
 
   @outOfBoundsTest
-  Scenario Outline: This test will check that the error message is displayed for numbers out of bounds
+  Scenario Outline: This test will check that the error message is displayed for numbers out of bounds such as <input_Number>
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
     Then an error message is displayed
@@ -63,7 +63,7 @@ Feature: These tests will test the functionality of the number to word converter
       | -10000000000 |
 
   @normalEntryTest
-  Scenario Outline: Standard set of regression numbers
+  Scenario Outline: Standard set of regression numbers such as <input_Number>
     Given I navigate to the numberToWord page
     When I enter the value <input_Number> into the number to word converter entry field
     Then the expected word value of <output_Word> is returned

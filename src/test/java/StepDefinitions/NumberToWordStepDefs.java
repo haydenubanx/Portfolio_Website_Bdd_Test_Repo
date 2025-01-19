@@ -37,7 +37,6 @@ public class NumberToWordStepDefs {
             ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].click();", numberToWordPage.getSubmitButton());
 //            numberToWordPage.getSubmitButton().click();
         } catch (Exception e) {
-            ScreenshotUtil.takeScreenshot(testContext.getWebDriver(), testContext.getTestId() + "-error_on_submit");
             System.out.println("An error occurred: " + e.getMessage());
 
         }

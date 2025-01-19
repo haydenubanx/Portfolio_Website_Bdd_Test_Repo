@@ -2,7 +2,8 @@
 Feature: These tests will test the functionality of the Home Page
 
 
-  Scenario Outline: These tests will test the navigation through links from the home site
+  @nav_Menu_Home
+  Scenario Outline: These tests will test the navigation through links from the home site by using the <button> button
     Given I navigate to the Home page
     When I click the <button> button
     Then I am directed to the <page> page
