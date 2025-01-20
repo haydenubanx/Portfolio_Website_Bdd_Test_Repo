@@ -14,8 +14,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class NumberToWordStepDefs {
 
@@ -58,8 +57,8 @@ public class NumberToWordStepDefs {
         String outputText = numberToWordPage.getOutputWordText().getText();
 
 
-        assertTrue( outputText.toLowerCase().contains(expectedWord.toLowerCase()), "Expected output text to contain string value: " + expectedWord + "\n" +
-                "But actual value was: " + "\n" + outputText);
+        assertTrue( "Expected output text to contain string value: " + expectedWord + "\n" +
+                "But actual value was: " + "\n" + outputText, outputText.toLowerCase().contains(expectedWord.toLowerCase()));
 
 
     }
@@ -79,8 +78,8 @@ public class NumberToWordStepDefs {
         String outputText = numberToWordPage.getOutputWordText().getText();
 
 
-        assertTrue( outputText.toLowerCase().contains(expectedPhrase.toLowerCase()), "Expected output to contain an error value \n" +
-                "But actual value was: " + "\n" + outputText);
+        assertTrue( "Expected output to contain an error value \n" +
+                "But actual value was: " + "\n" + outputText, outputText.toLowerCase().contains(expectedPhrase.toLowerCase()));
 
 
     }

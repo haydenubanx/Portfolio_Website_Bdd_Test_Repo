@@ -3,7 +3,6 @@ package Context;
 
 import io.cucumber.java.BeforeAll;
 import lombok.Data;
-import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

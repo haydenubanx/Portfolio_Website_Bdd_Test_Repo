@@ -10,7 +10,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Objects;
+
+import static org.testng.Assert.assertEquals;
 
 
 public class PageNavigationStepDefs {
@@ -135,7 +137,7 @@ public class PageNavigationStepDefs {
     public void iAmDirectedToThePagePage(String inputPage) {
 
         String tempUrl = url;
-        String actualUrl = testContext.getWebDriver().getCurrentUrl();
+        String actualUrl = Objects.requireNonNull(testContext.getWebDriver().getCurrentUrl());
 
         switch (inputPage) {
             case "Index":
