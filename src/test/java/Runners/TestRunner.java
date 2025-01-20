@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"StepDefinitions", "Hooks"},
-        tags = "@Portfolio",
+        tags = "@BattleShipPage",
         plugin = {
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "pretty",

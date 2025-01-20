@@ -23,6 +23,8 @@ public class TestContext {
     private static ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
     Random random;
     private String testId;
+    private int currShotX = 13;
+    private int currShotY = 14;
 
     public TestContext() {
 
