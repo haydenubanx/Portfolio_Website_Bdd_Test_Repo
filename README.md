@@ -2,8 +2,9 @@
 
 ## Overview
 
-This repository contains the BDD test automation framework developed to ensure the quality and functionality of the portfolio website. The framework is designed to validate key features, user interactions, and expected behaviors using Behavior-Driven Development principles. It provides an easy-to-understand approach to writing and executing tests, leveraging Gherkin syntax for defining feature files.
+This repository contains the BDD test automation framework developed to ensure the quality and functionality of my portfolio website. The framework is designed to validate key features, user interactions, and expected behaviors using Behavior-Driven Development principles. It provides an easy-to-understand approach to writing and executing tests, leveraging Gherkin syntax for defining feature files.
 
+![Build Success](screenshots/buildSuccess.png)
 
 ---
 
@@ -40,9 +41,13 @@ This repository contains the BDD test automation framework developed to ensure t
 ## Instructions For Use
 
 1. Install repository on local machine
-2. Run the command ```mvn clean install``` from the terminal
-3. To see report run the command ```allure serve```
-4. To save the report run the command ```allure generate```
+2. (Optional) Currently in headless mode, but to see browser actions reverse lines in testContext file as outlined below
+   ![Headless Mode Instructions](screenshots/headlessMode.png)
+3. (Optional) To modify rate of concurrency, set the thread number from the surefire plugin in the pom as shown below
+   ![Thread Count ](screenshots/threadCount.png)
+4. Run the command ```mvn clean install``` from the terminal
+5. To see report run the command ```allure serve```
+6. To save the report run the command ```allure generate```
 
 
 ---
