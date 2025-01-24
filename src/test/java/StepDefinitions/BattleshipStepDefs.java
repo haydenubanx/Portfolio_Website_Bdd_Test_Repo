@@ -35,7 +35,7 @@ public class BattleshipStepDefs {
     }
 
 
-    @When("^I select the (.*) powerup$")
+    @When("^I (?:select|deselect) the (.*) powerup$")
     public void iSelectThePowerup(String powerup) {
 
         switch (powerup.toLowerCase()) {
@@ -52,11 +52,13 @@ public class BattleshipStepDefs {
                 break;
         }
 
+        testContext.setLastUsedPowerUp(powerup);
+
 
     }
 
 
-    @And("^I use the powerup$")
+    @And("^I (?:use the powerup|take a shot)$")
     public void iUseThePowerup() {
 
 
@@ -64,12 +66,8 @@ public class BattleshipStepDefs {
 
     }
 
-    @And("^I use the powerup on cell X:(.*) Y:(.*)$")
+    @And("^I (?:use the powerup on|take a shot at) cell X:(.*) Y:(.*)$")
     public void iUseThePowerupOnCell(int xCord, int yCord) {
-
-        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + xCord + "-" + yCord));
-        //Scroll into view
-        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
 
         shootCell(xCord, yCord);
 
@@ -77,10 +75,6 @@ public class BattleshipStepDefs {
 
     @And("^I hover over the cell X:(.*) Y:(.*)$")
     public void iHoverOverCell(int xCord, int yCord) {
-
-        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + xCord + "-" + yCord));
-        //Scroll into view
-        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
 
         hoverCell(xCord, yCord);
 
@@ -168,6 +162,10 @@ public class BattleshipStepDefs {
 
         WebElement cellToSelect = testContext.getWebDriver().findElement(By.id("cell-" + xcord + "-" + ycord));
 
+        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + xcord + "-" + ycord));
+        //Scroll into view
+        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
+
 
         cellToSelect.click();
 
@@ -178,6 +176,10 @@ public class BattleshipStepDefs {
     private void hoverCell(int xcord, int ycord) {
 
         WebElement cellToSelect = testContext.getWebDriver().findElement(By.id("cell-" + xcord + "-" + ycord));
+
+        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + xcord + "-" + ycord));
+        //Scroll into view
+        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
 
         testContext.setCurrShotX(xcord);
         testContext.setCurrShotY(ycord);
@@ -193,5 +195,93 @@ public class BattleshipStepDefs {
         System.out.println(color);
 
         return color;
+    }
+
+    @And("I sink all of the ships")
+    public void iSinkAllOfTheShips() {
+
+        battleShipPage.getTorpedoPowerup().click();
+
+        String shipsLeftText = battleShipPage.getShipsLeft().getText();
+        String number = shipsLeftText.split(": ")[1];
+        int shipsLeft = Integer.parseInt(number);
+        int i = 1;
+
+        shootCell(i,1);
+
+        while (shipsLeft > 0 && i < 25) {
+            battleShipPage.getTorpedoPowerup().click();
+            i++;
+            shootCell(i,1);
+
+            shipsLeftText = battleShipPage.getShipsLeft().getText();
+            number = shipsLeftText.split(": ")[1];
+            shipsLeft = Integer.parseInt(number);
+        }
+
+    }
+
+    @Then("the add to leaderboard popup appears")
+    public void theAddToLeaderboardPopupAppears() {
+
+        WebElement playerNameInputField = testContext.getWebDriver().findElement(By.id("player-name-input"));
+
+        assertNotNull(playerNameInputField, "The game won pop-up window did not display");
+
+    }
+
+    @Then("the number of shots fired is updated correctly")
+    public void theNumberOfShotsFiredIsUpdatedCorrectly() {
+
+        String shotsUsedText = battleShipPage.getShotsUsed().getText();
+        String number = shotsUsedText.split(": ")[1];
+        int shotsUsed = Integer.parseInt(number);
+
+
+        switch (testContext.getLastUsedPowerUp().toLowerCase()) {
+            case "cannon":
+                assertEquals(shotsUsed, 9, "Expected the cannon powerup to use 9 shots but instead used " + shotsUsed);
+                break;
+
+            case "air raid":
+                assertEquals(shotsUsed, 9, "Expected the air raid powerup to use 9 shots but instead used " + shotsUsed);
+                break;
+
+            case "torpedo":
+                assertEquals(shotsUsed, 25, "Expected the torpedo powerup to use 25 shots but instead used " + shotsUsed);
+                break;
+
+            default:
+                assertEquals(shotsUsed, 1, "Expected 1 shot used but instead used " + shotsUsed);
+                break;
+        }
+
+    }
+
+    @Then("the effect is no longer applied")
+    public void thePowerupEffectIsNoLongerApplied() {
+
+        int startingXcord = testContext.getCurrShotX();
+        int startingYcord = testContext.getCurrShotY();
+        int boardSize = 25;
+
+        hoverCell(startingXcord, startingYcord);
+
+        //Iterate over cannon xcoordinates containing left, right, and center
+        for (int i = startingXcord - 1; i < startingXcord + 1; i++) {
+
+            //Iterate over cannon ycoordinates containing above, below, and center
+            for (int j = startingYcord - 1; j < startingYcord + 1; j++) {
+                if (i >= 1 && i <= boardSize && j >= 1 && j <= boardSize) {
+                    if(i == startingXcord && j == startingYcord) {
+                        continue;
+                    }
+                    else {
+                        String currCellColor = checkCellColor(i, j);
+                        assertTrue(currCellColor.equalsIgnoreCase(battleShipPage.getNuetralColor()), "Color of cell was color of neutral cell indicating shot did not take place");
+                    }
+                }
+            }
+        }
     }
 }

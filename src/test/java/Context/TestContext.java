@@ -22,6 +22,7 @@ public class TestContext {
     private WebDriverWait wait;
     private static ThreadLocal<WebDriver> webDriverThreadLocal = new ThreadLocal<>();
     Random random;
+    private String lastUsedPowerUp = "";
     private String testId;
     private int currShotX = 13;
     private int currShotY = 14;
