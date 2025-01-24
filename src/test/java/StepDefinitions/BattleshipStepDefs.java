@@ -67,6 +67,10 @@ public class BattleshipStepDefs {
     @And("^I use the powerup on cell X:(.*) Y:(.*)$")
     public void iUseThePowerupOnCell(int xCord, int yCord) {
 
+        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + xCord + "-" + yCord));
+        //Scroll into view
+        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
+
         shootCell(xCord, yCord);
 
     }
@@ -74,20 +78,20 @@ public class BattleshipStepDefs {
     @And("^I hover over the cell X:(.*) Y:(.*)$")
     public void iHoverOverCell(int xCord, int yCord) {
 
+        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + xCord + "-" + yCord));
+        //Scroll into view
+        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
+
         hoverCell(xCord, yCord);
 
     }
 
-    @Then("^the (.*) powerup is applied correctly$")
+    @Then("^the (.*) (?:powerup|hover effect) is applied correctly$")
     public void powerupAppliedCorrectly(String powerup) {
 
         int startingXcord = testContext.getCurrShotX();
         int startingYcord = testContext.getCurrShotY();
         int boardSize = 25;
-
-        WebElement startingCell = testContext.getWebDriver().findElement(By.id("cell-" + startingXcord + "-" + startingYcord));
-        //                 Scroll into view
-        ((JavascriptExecutor) testContext.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", startingCell);
 
 
         switch (powerup.toLowerCase()) {
@@ -138,11 +142,9 @@ public class BattleshipStepDefs {
                 //Iterate over cannon xcoordinates for an entire row
                 for (int j = 1; j < 26; j++) {
 
-                    if (j >= 1 && j <= boardSize) {
                         String currCellColor = checkCellColor(startingXcord, j);
                         assertFalse(currCellColor.equalsIgnoreCase(battleShipPage.getNuetralColor()), "Color of cell " + j + " " + startingYcord + " was color of neutral cell indicating shot did not take place");
 
-                    }
                 }
                 break;
         }
@@ -176,6 +178,9 @@ public class BattleshipStepDefs {
     private void hoverCell(int xcord, int ycord) {
 
         WebElement cellToSelect = testContext.getWebDriver().findElement(By.id("cell-" + xcord + "-" + ycord));
+
+        testContext.setCurrShotX(xcord);
+        testContext.setCurrShotY(ycord);
 
 
         actions.moveToElement(cellToSelect).perform();
