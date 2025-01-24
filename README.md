@@ -9,7 +9,7 @@ This repository contains the BDD test automation framework developed to ensure t
 
 ## Prerequisites
 
-- Java 21
+- Java 23
 - Maven
 - Allure
 
