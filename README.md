@@ -51,10 +51,9 @@ Link to site: [Portfolio Site](https://haydeneubanks.co.uk/index.php)
 5. To see report run the command ```allure serve```
 6. To save the report run the command ```allure generate```
 
-
 ---
 
 ## Future Improvements
 
-- **Increase test coverage:** Test cases are defined in Gherkin, promoting collaboration and clarity.
-- **Multi-Browser Support:**  Supports multiple browsers to ensure compatibility.
+- **Increase test coverage:** Increase test pack to increase test coverage and provide even more comprehensive testing.
+- **Multi-Browser Support:**  Supports multiple browsers to ensure wider compatibility.
