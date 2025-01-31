@@ -16,7 +16,6 @@ public class MainApp {
 
             mainWindow.getRunTestsButton().addActionListener(e -> {
                 mainWindow.getRunTestsButton().setEnabled(false);
-                mainWindow.getStopTestsButton().setEnabled(true);
                 mainWindow.setProgressBarVisible(true);
                 mainWindow.appendResult("Tests Running...\n");
 
@@ -46,20 +45,9 @@ public class MainApp {
                             mainWindow.appendResult("Tests Completed\n");
                             mainWindow.setProgressBarIndeterminate(false);
                             mainWindow.getRunTestsButton().setEnabled(true);
-                            mainWindow.getStopTestsButton().setEnabled(false);
                         });
                     }
                 }).start();
-            });
-
-            mainWindow.getStopTestsButton().addActionListener(e -> {
-                if (process != null) {
-                    process.destroyForcibly();
-                    mainWindow.appendResult("Tests Stopped\n");
-                    mainWindow.setProgressBarIndeterminate(false);
-                    mainWindow.getRunTestsButton().setEnabled(true);
-                    mainWindow.getStopTestsButton().setEnabled(false);
-                }
             });
         });
     }
